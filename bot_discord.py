@@ -3,6 +3,7 @@ import random
 import os
 import requests
 from discord.ext import commands
+from model import get_class
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -135,5 +136,16 @@ async def dicas(ctx):
 async def praticar(ctx):
     pratica = random.choice(praticas)
     await ctx.send(pratica)
-    
-bot.run(Token)
+
+@bot.command()
+async def check(ctx):
+    if ctx.message.attachment:
+        for attachment in ctx.message.attachments:
+            file_name = attachment.filename
+            file_url = attachment.url
+            await attachment.save(f"./{attachment.filename}")
+            await ctx.send(get_class(model_path="./keras_model.h5", labels_path="./labels.txt", image_path=f"./{attachment.filename}"))
+    else:
+        await ctx.send("Você não enviou nenhuma imagem. Por favor, envie uma imagem para que eu possa verificar.")
+
+bot.run("TOKEM")
