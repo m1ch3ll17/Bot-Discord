@@ -1,0 +1,6 @@
+0 HD
+1 SSD
+2 Memoria Ram
+3 Placa Mãe
+4 Processador
+5 Placa de Video
